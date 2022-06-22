@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaft.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!--
+        <div>Saludos</div>
+        <p th:text="${texto}">prueba</p>
+        
+        <h1>Un cliente</h1>
+        
+        <p>Nombre: <span th:text="${cliente.nombre}"></span></p>
+        <p>Apellidos: <span th:text="${cliente.apellidos}"></span></p>
+        <p>Correo: <span th:text="${cliente.correo}"></span></p>
+        <p>Teléfono: <span th:text="${cliente.telefono}"></span></p>
+        
+        <br>
+        <br>
+        -->
+        <h1>Lista de clientes</h1>
+        
+        <div th:if="${clientes != null and !clientes.empty}">        
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${clientes}">
+                    <td th:text="${item.nombre}"></td>
+                    <td th:text="${item.apellidos}"></td>
+                    <td th:text="${item.correo}"></td>
+                    <td th:text="${item.telefono}"></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        
+        <div th:if="${clientes == null or clientes.empty}">
+            La lista de clientes está vacía
+        </div>
+    </body>
+</html>

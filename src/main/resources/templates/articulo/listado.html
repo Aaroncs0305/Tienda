@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaft.org">
+<html>
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
@@ -7,33 +7,38 @@
         <link rel="stylesheet" th:href="@{/css/menu.css}" />
     </head>
     <body>
+
         <header th:replace="layout/plantilla :: header" />
         <div class="contenido">
-            <h2>Nuestros Articulos</h2>
-            
+            <h2>Lista de Articulos</h2>
+
             <div th:if="${articulos != null and !articulos.empty}">        
                 <table border="1">
+                    <thead>
                     <thead id="encabezadoTabla">
                         <tr>
-                            <th>Descripcion</th>
+                            <th>Descripción</th>
                             <th>Precio</th>
+                            <th>Existencias</th>
+                            <th>Activo</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="item : ${articulos}">
                             <td th:text="${item.descripcion}"></td>
                             <td th:text="${#numbers.formatDecimal(item.precio, 3, 2)}"></td>
-                            <td><a th:href="@{/carrito/agregar/} + ${item.idArticulo}">Comprar</a></td>
+                            <td th:text="${item.existencias}"></td>
+                            <td><input type="checkbox" name="activo" th:cheked="${item.activo}" disabled="true" /></td>
+                            <td><a th:href="@{/articulo/modificar/} + ${item.idArticulo}">Modificiar</a></td>
+                            <td><a th:href="@{/articulo/eliminar/} + ${item.idArticulo}">Eliminar</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
             <div th:if="${articulos == null or articulos.empty}">
-                No hay articulos para mostrar.
+                La lista de articulos está vacía
             </div>
         </div>
-        <footer th:replace="layout/plantilla :: footer" />
-
+        <footer th:replace="layout/plantilla :: footer">
     </body>
 </html>

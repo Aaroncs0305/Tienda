@@ -1,5 +1,7 @@
 package com.Tienda;
 
+import com.Tienda.service.UsuarioDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,11 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
+    @Autowired
+    UsuarioDetailsServiceImpl userDetailsService;
+    
     // metodo para la autenticacion del ususario
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
+        
+/*      auth.inMemoryAuthentication()
                 .withUser("admin")
                     .password("{noop}123")
                     .roles("ADMIN", "VENDEDOR", "USER")
@@ -26,6 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .withUser("user")
                     .password("{noop}123")
                     .roles("USER");
+*/
+
+        auth.userDetailsService(userDetailsService);
     }
     
     // este metodo realiza la autorizacion de accesos
